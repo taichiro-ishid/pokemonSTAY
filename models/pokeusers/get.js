@@ -1,7 +1,6 @@
 module.exports = (knex, PokeUser) => {
     return (params) => {
         const username = params;
-        console.log(username)
         return knex("pokeusers")
             .where({ username: username.toLowerCase() })
             .select()

@@ -4,7 +4,6 @@ module.exports = (knex, getPokemon) => {
             .where({ user_id: userId })
             .select()
             .then((pokemons) => {
-                console.log("dddddddddddddddd", pokemons.map((pokemon) => new getPokemon(pokemon)))
                 return pokemons.map((pokemon) => new getPokemon(pokemon))
             });
     };
