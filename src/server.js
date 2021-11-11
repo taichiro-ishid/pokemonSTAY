@@ -15,14 +15,14 @@ const setupServer = () => {
      */
     app.use(express.json());
 
-    app.get("/pokemon/user", (req, res) => {
+    app.get("/pokemon/users", (req, res) => {
         models.users
             .get(req.query.name)
             .then((user) => res.status(200).json(user.serialize()))
             .catch((err) => res.status(400).send(err.message));
     });
 
-    app.post("/pokemon/user", (req, res) => {
+    app.post("/pokemon/users", (req, res) => {
         const { name } = req.body;
         models.users
             .create(name)
@@ -37,6 +37,54 @@ const setupServer = () => {
             });
     });
 
+    app.post("/pokemon/getpokemons", (req, res) => {
+        const { name } = req.body;
+        let userId = 0;
+        const pokemons = ["ピカチュウ", "リザードン", "ラプラス", "カビゴン", "ミュウツー", "とおりもん", "ミュウスリー", "けつばん", "まさこ", "ぎゅうた"]
+        const yaseipokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+
+        new Promise((resolve) => {
+            models.users
+                .get(name)
+                .then((user) => {
+                    userId = user.id
+                    resolve()
+                })
+                .catch((err) => res.status(400).send(err.message));
+        }).then(() => {
+            models.getPokemon
+                .get(userId, yaseipokemon)
+                .then((havepokemon) => {
+                    console.log("セレクト処理完了")
+                    console.log(havepokemon.length)
+                    if (havepokemon.length) {
+                        //update処理
+                        console.log("このポケモン持ってるよ", havepokemon)
+                        console.log(havepokemon[0].count)
+                        models.getPokemon
+                            .update(userId, yaseipokemon, havepokemon[0].count)
+                            .then((message) => {
+                                res.status(201).send(message);
+                            })
+                    } else {
+                        models.getPokemon
+                            .create(userId, yaseipokemon)
+                            .then((message) => {
+                                console.log("この処理は走らせたくない")
+                                res.status(201).send(message)
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                                return res.status(400).send(err.message);
+                            });
+                    }
+                })
+                .catch((err) => res.status(400).send(err.message));
+        })
+
+
+
+    });
 
 
     return app;

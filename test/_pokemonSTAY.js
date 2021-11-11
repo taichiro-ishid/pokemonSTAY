@@ -18,7 +18,7 @@ chai.should();
 
 //     describe("GET /pokemon/user", () => {
 //         it("should get valid user", async() => {
-//             const res = await request.get("/pokemon/user?name=a");
+//             fres = await request.get("/pokemon/user?name=a");
 //             res.should.be.html;
 //             const expected = "aa";
 //             res.text.should.equal(expected);
