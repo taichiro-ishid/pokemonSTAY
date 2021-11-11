@@ -79,7 +79,7 @@ const setupServer = () => {
         })
     });
 
-    app.patch("/pokemon/getpokemons", (req, res) => {
+    app.delete("/pokemon/getpokemons", (req, res) => {
         const { id } = req.body;
         models.getPokemon
             .delete(id)
@@ -88,6 +88,37 @@ const setupServer = () => {
                 return res.status(400).send(err.message);
             });
     });
+
+    app.patch("/pokemon/users", (req, res) => {
+        const { oldName, newName } = req.body;
+        models.users
+            .patch(oldName, newName)
+            .then((val) => res.status(200).send(val))
+            .catch((err) => {
+                return res.status(400).send(err.message);
+            });
+    });
+
+    app.get("/pokemon/getpokemons/:id", (req, res) => {
+        console.log("aaaaa")
+        const { id } = req.params;
+        models.getPokemon
+            .list(id)
+            .then((val) => {
+                if (val.length <= 3) {
+                    val.push({ "図鑑評価": "まだまだ沢山のポケモンがいるぞ！目指せポケモンマスター！" })
+                } else if (val.length <= 6) {
+                    val.push({ "図鑑評価": "かなりの数のポケモンを捕まえたぞ！図鑑完成までもう少し！" })
+                } else if (val.length === 10) {
+                    val.push({ "図鑑評価": "すごい！すべてのポケモンを捕まえたぞ！君がポケモンマスターだ！" })
+                }
+                res.status(200).send(val)
+            })
+            .catch((err) => {
+                return res.status(400).send(err.message);
+            });
+    });
+
     return app;
 };
 

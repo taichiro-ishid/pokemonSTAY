@@ -21,5 +21,6 @@ module.exports = (knex) => {
         create: require("./create")(knex, PokeUser),
         list: require("./list")(knex, PokeUser),
         get: require("./get")(knex, PokeUser),
+        patch: require("./patch")(knex, PokeUser),
     };
 };
