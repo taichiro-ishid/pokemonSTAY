@@ -3,16 +3,18 @@ module.exports = (knex, GetPokemon) => {
         const name = params;
         const pokemons = ["ピカチュウ", "リザードン", "ラプラス", "カビゴン", "ミュウツー", "とおりもん", "ミュウスリー", "けつばん", "まさこ", "ぎゅうた"]
         const getpokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+        let userId = 0;
         console.log(getpokemon);
-        console.log(userId)
 
-        knex("pokeusers")
+        return knex("pokeusers")
             .where({ username: name })
             .select()
             .then((users) => {
+                console.log(users)
+                userId = users[0].id;
                 console.log("aaa")
                 if (users.length) {
-                    knex("get_pokemons")
+                    return knex("get_pokemons")
                         .where({ pokemon_name: getpokemon })
                         .select()
                         .then((pokemon) => {

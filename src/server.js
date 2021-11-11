@@ -37,6 +37,21 @@ const setupServer = () => {
             });
     });
 
+    // app.post("/pokemon/getpokemons", (req, res) => {
+    //     const { name } = req.body;
+    //     models.getPokemon
+    //         .create(name)
+    //         .then((user) => res.status(201).send(user))
+    //         .catch((err) => {
+    //             if (err.message === "That username already exists") {
+    //                 return models.users
+    //                     .get({ username: req.body.username })
+    //                     .then((user) => res.status(200).json(user.serialize()));
+    //             }
+    //             return res.status(400).send(err.message);
+    //         });
+    // });
+
     app.post("/pokemon/getpokemons", (req, res) => {
         const { name } = req.body;
         let userId = 0;
@@ -105,9 +120,9 @@ const setupServer = () => {
         models.getPokemon
             .list(id)
             .then((val) => {
-                if (val.length <= 3) {
+                if (val.length <= 5) {
                     val.push({ "図鑑評価": "まだまだ沢山のポケモンがいるぞ！目指せポケモンマスター！" })
-                } else if (val.length <= 6) {
+                } else if (val.length <= 9) {
                     val.push({ "図鑑評価": "かなりの数のポケモンを捕まえたぞ！図鑑完成までもう少し！" })
                 } else if (val.length === 10) {
                     val.push({ "図鑑評価": "すごい！すべてのポケモンを捕まえたぞ！君がポケモンマスターだ！" })
