@@ -55,11 +55,8 @@ const setupServer = () => {
             models.getPokemon
                 .get(userId, yaseipokemon)
                 .then((havepokemon) => {
-                    console.log("セレクト処理完了")
-                    console.log(havepokemon.length)
                     if (havepokemon.length) {
                         //update処理
-                        console.log("このポケモン持ってるよ", havepokemon)
                         console.log(havepokemon[0].count)
                         models.getPokemon
                             .update(userId, yaseipokemon, havepokemon[0].count)
@@ -70,7 +67,6 @@ const setupServer = () => {
                         models.getPokemon
                             .create(userId, yaseipokemon)
                             .then((message) => {
-                                console.log("この処理は走らせたくない")
                                 res.status(201).send(message)
                             })
                             .catch((err) => {
@@ -81,12 +77,17 @@ const setupServer = () => {
                 })
                 .catch((err) => res.status(400).send(err.message));
         })
-
-
-
     });
 
-
+    app.patch("/pokemon/getpokemons", (req, res) => {
+        const { id } = req.body;
+        models.getPokemon
+            .delete(id)
+            .then((val) => res.status(200).send(val))
+            .catch((err) => {
+                return res.status(400).send(err.message);
+            });
+    });
     return app;
 };
 

@@ -25,5 +25,6 @@ module.exports = (knex) => {
         create: require("./create")(knex, getPokemon),
         get: require("./get")(knex, getPokemon),
         update: require("./update")(knex, getPokemon),
+        delete: require("./delete")(knex, getPokemon),
     };
 };
