@@ -1,3 +1,6 @@
+// const env = require("express");
+require("dotenv").config();
+
 module.exports = {
     // database connection configs
     // You might want to update this

@@ -18,8 +18,7 @@ const setupServer = () => {
     app.get("/pokemon/user", (req, res) => {
         models.users
             .get(req.query.name)
-            .then((users) => users.map((user) => user.serialize()))
-            .then((users) => res.status(200).json(users))
+            .then((user) => res.status(200).json(user.serialize()))
             .catch((err) => res.status(400).send(err.message));
     });
 

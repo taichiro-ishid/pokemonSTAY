@@ -6,6 +6,7 @@
     "dependencies": {
         "chai": "^4.3.4",
         "chai-http": "^4.3.0",
+        "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "knex": "^0.95.14",
         "mocha": "^9.1.3",
@@ -16,6 +17,7 @@
     "devDependencies": {},
     "scripts": {
         "test": "mocha test",
+        "dev": "nodemon ./src/index.js",
         "makeMigrate": "knex migrate:make --knexfile models/knexfile.js",
         "migrate": "knex migrate:latest --knexfile models/knexfile.js",
         "rollback": "knex migrate:rollback --knexfile models/knexfile.js "

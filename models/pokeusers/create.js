@@ -4,8 +4,6 @@ const validateUsername = (uName) =>
 module.exports = (knex, PokeUser) => {
     return (params) => {
         const username = params;
-        console.log(username)
-
         if (!validateUsername(username)) {
             return Promise.reject(
                 new Error("Username must be provided, and be at least two characters")

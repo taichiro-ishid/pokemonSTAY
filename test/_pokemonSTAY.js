@@ -9,32 +9,32 @@ chai.should();
  * For this you will want to get familiar with chai-http https://www.chaijs.com/plugins/chai-http/
  * The same kind of structure that you encountered in lecture.express will be provided here.
  */
-const server = setupServer();
-describe("Pokemon API Server", () => {
-    let request;
-    beforeEach(() => {
-        request = chai.request(server).keepOpen();
-    });
+// const server = setupServer();
+// describe("Pokemon API Server", () => {
+//     let request;
+//     beforeEach(() => {
+//         request = chai.request(server).keepOpen();
+//     });
 
-    describe("GET /pokemon/user", () => {
-        it("should get valid user", async() => {
-            const res = await request.get("/pokemon/user?name=a");
-            res.should.be.html;
-            const expected = "aa";
-            res.text.should.equal(expected);
-            request.close();
-        });
-    });
+//     describe("GET /pokemon/user", () => {
+//         it("should get valid user", async() => {
+//             const res = await request.get("/pokemon/user?name=a");
+//             res.should.be.html;
+//             const expected = "aa";
+//             res.text.should.equal(expected);
+//             request.close();
+//         });
+//     });
 
-    describe("POST /pokemon/user", () => {
-        it("should post valid user", async() => {
-            const res = await request.post("/pokemon/user").send({ name: "test" });
-            res.should.be.html;
-            res.should.have.status(201);
-            request.close();
-        });
-    });
-});
+//     describe("POST /pokemon/user", () => {
+//         it("should post valid user", async() => {
+//             const res = await request.post("/pokemon/user").send({ name: "test" });
+//             res.should.be.html;
+//             res.should.have.status(201);
+//             request.close();
+//         });
+//     });
+// });
 
 
 
